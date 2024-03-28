@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ساعت و تاریخ</title>
+    <style>
+        @font-face {
+            font-family: 'Digital-7';
+            src: url('https://rozup.ir/view/3821924/digital-7.ttf') format('truetype');
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #clock {
+            font-family: 'Digital-7', monospace;
+            font-size: 80px;
+            text-align: center;
+            color: #00b050;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            padding: 20px;
+            border: 5px solid #00b050;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+         @import url('https://rozup.ir/view/3821905/Vazir.ttf');
+    </style>
+</head>
+<body>
+    <div id="clock"></div>
+
+    </div>
+
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            
+
+            hours = formatTime(hours);
+            minutes = formatTime(minutes);
+            seconds = formatTime(seconds);
+
+            var timeString = hours + ":" + minutes + ":" + seconds;
+            var dateString = convertDateToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+            document.getElementById("clock").innerHTML = timeString + "<br>" + dateString;
+        }
+
+        function formatTime(time) {
+            if (time < 10) {
+                return "0" + time;
+            }
+            return time;
+        }
+
+        function convertDateToJalali(year, month, day) {
+            var gregorianDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var jalaliDaysInMonth = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+
+            var gy = year - 1600;
+            var gm = month - 1;
+            var gd = day - 1;
+
+            var g_day_no = 365 * gy + Math.floor((gy + 3) / 4) - Math.floor((gy + 99) / 100) + Math.floor((gy + 399) / 400);
+            for (var i = 0; i < gm; ++i)
+                g_day_no += gregorianDaysInMonth[i];
+            if (gm > 1 && ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)))
+                g_day_no++;
+            g_day_no += gd;
+
+            var j_day_no = g_day_no - 79;
+
+            var j_np = Math.floor(j_day_no / 12053);
+            j_day_no %= 12053;
+
+            var jy = 979 + 33 * j_np + 4 * Math.floor(j_day_no / 1461);
+            j_day_no %= 1461;
+
+            if (j_day_no >= 366) {
+                jy += Math.floor((j_day_no - 1) / 365);
+                j_day_no = (j_day_no - 1) % 365;
+            }
+
+            for (var i = 0; i < 11 && j_day_no >= jalaliDaysInMonth[i]; ++i)
+                j_day_no -= jalaliDaysInMonth[i];
+
+            var jm = i + 1;
+            var jd = j_day_no + 1;
+
+            return jy + "/" + formatTime(jm) + "/" + formatTime(jd);
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

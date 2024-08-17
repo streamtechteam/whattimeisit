@@ -5,82 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamClock</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <style>
-        body {
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f7f7;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .clock-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            border: 0px solid #ccc;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 300px;
-        }
-
-        .logo {
-            width: 84px;
-            height: 84px;
-            margin-bottom: 20px;
-        }
-
-        .clock {
-            font-size: 3em;
-            color: #333;
-            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .date {
-            font-size: 1.5em;
-            color: #555;
-        }
-
-        .footer {
-            src: url('https://rozup.ir/view/3821905/Vazir.ttf') format("truetype");
-            font-family: 'Vazir';
-            margin-top: 20px;
-            font-size: 1em;
-            color: #888;
-        }
-    </style>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/pictures/favicon.ico">
+    <link rel="stylesheet" href="src/styles/style.css">
 </head>
 
 <body>
     <div class="clock-container">
-        <img src="logo for aparat.png" alt="logo"
-            class="logo">
+        <img src="assets/pictures/logo for aparat.png" alt="logo" class="logo">
         <div class="clock" id="clock"></div>
         <div class="date" id="date"></div>
         <p class="footer">StreamTech طراحی شده با ❤️ توسط</p>
     </div>
-    <script>
-
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const date = now.toLocaleDateString('fa-IR');
-
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('date').textContent = date;
-        }
-
-        updateClock();
-        setInterval(updateClock, 1000);
-
+    <script src="src/scripts/script.js">
     </script>
 
 </body>
